@@ -21,8 +21,13 @@
 
             game.load.image('logo', '/sprites/Filthy.png');
             game.load.spritesheet('hero', 'sprites/hero.png', 32, 32);
-
+            game.load.audio('intro', 'music/yy.mp3');
+            game.load.audio('waves', 'music/waves.mp3')
         }
+        
+        var intro;
+        var waves;
+        var introPlaying = true;
 
         function create () {
             game.stage.backgroundColor = "#4488AA";
@@ -38,11 +43,25 @@
             hero.body.bounce.set(0.8);
             
             
+            //Music:
+            intro = game.add.audio('intro');
+            waves = game.add.audio('waves');
+            intro.play();
+            game.input.onDown.add(nextSong, this);
             logo.anchor.setTo(0.5, 0.5);
-            
-
         }
-
+        
+        function nextSong() {
+            if (introPlaying) {
+                intro.stop();
+                waves.play();
+                introPlaying = false;
+            } else {
+                waves.stop();
+                intro.play();
+                introPlaying = true;
+            }
+        }
     };
 
     </script>
