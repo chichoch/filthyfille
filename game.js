@@ -12,11 +12,13 @@ window.onload = function () {
 
         game.load.image('logo', '/sprites/Filthy.png');
         game.load.spritesheet('hero', 'sprites/hero2.png', 16, 32);
-        game.load.audio('intro', 'music/yy.mp3');
+        game.load.audio('intro', 'music/intro.mp3');
+        game.load.audio('mellow', 'music/mellow.mp3');
         game.load.audio('waves', 'music/waves.mp3')
     }
 
     var intro;
+    var mellow;
     var waves;
     var introPlaying = true;
     var cursors;
@@ -47,6 +49,7 @@ window.onload = function () {
 
         //Music:
         intro = game.add.audio('intro');
+        mellow = game.add.audio('mellow');
         waves = game.add.audio('waves');
         intro.play();
         game.input.onDown.add(nextSong, this);
