@@ -17,6 +17,8 @@ window.onload = function () {
         game.load.audio('waves', 'music/waves.mp3')
     }
 
+    var songs;
+    var currentSong = 0;
     var intro;
     var mellow;
     var waves;
@@ -24,7 +26,7 @@ window.onload = function () {
     var cursors;
     var jumpButton;
     var hero;
-
+    
     function create () {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.stage.backgroundColor = "#4488AA";
@@ -51,6 +53,7 @@ window.onload = function () {
         intro = game.add.audio('intro');
         mellow = game.add.audio('mellow');
         waves = game.add.audio('waves');
+        songs = [intro, mellow, waves];
         intro.play();
         game.input.onDown.add(nextSong, this);
         logo.anchor.setTo(0.5, 0.5);
@@ -73,14 +76,13 @@ window.onload = function () {
   
 
     function nextSong() {
-        if (introPlaying) {
-            intro.stop();
-            waves.play();
-            introPlaying = false;
+        songs[currentSong].stop();
+        if (currentSong >= 2) {
+            currentSong = 0;
+            songs[currentSong].play();
         } else {
-            waves.stop();
-            intro.play();
-            introPlaying = true;
+            currentSong += 1;
+            songs[currentSong].play();
         }
     }
 };
